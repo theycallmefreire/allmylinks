@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links | Guilherme Freire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Adicione esta linha para o canvas do background -->
+    <canvas id="canvas"></canvas>
+    
+    <div class="container">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="img/perfil_foto.jpg" alt="Perfil" width = "2000px" height="200px">
+            </div>
+            <h1 class="title">Guilherme Barbosa Freire Silva</h1>
+            <p class="subtitle">Cybersecurity & Developer</p>
+        </div>
+        <div class="divider"></div>
+
+
+        <div class="links-section">
+            <a href="https://github.com/theycallmefreire" class="link-button" target="_blank">
+                GitHub
+            </a>
+            <a href="https://theycallmefreire.medium.com/" class="link-button" target="_blank">
+                Medium
+            </a>
+            <a href="https://www.linkedin.com/in/guilherme-barbosa-freire-silva/" class="link-button" target="_blank">
+                LinkedIn
+            </a>
+        </div>
+
+        <div class="footer">
+            <p></p>
+        </div>
+    </div>
+
+    <!-- Adicione este script no final do body -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            const symbols = '01';
+            const columns = Math.ceil(canvas.width / 20);
+            
+            const drops = new Array(columns).fill(0).map(() => ({
+                y: Math.random() * canvas.height,
+                speed: Math.random() * 40 + 1,
+                opacity: Math.random() * 0.7 + 0.3
+            }));
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.08)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.font = 'bold 16px "Courier New", monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const drop = drops[i];
+                    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                    const alpha = Math.max(0, (1 - (drop.y % 200) / 200) * drop.opacity);
+                    
+                    ctx.fillStyle = `rgba(14, 165, 233, ${alpha * 0.6})`;
+                    ctx.shadowColor = `rgba(14, 165, 233, ${alpha * 0.4})`;
+                    ctx.shadowBlur = 8;
+                    
+                    ctx.fillText(symbol, i * 20, drop.y);
+                    
+                    drop.y += drop.speed;
+                    
+                    if (drop.y > canvas.height) {
+                        drop.y = -20;
+                        drop.speed = Math.random() * 2 + 1;
+                        drop.opacity = Math.random() * 0.7 + 0.3;
+                    }
+                }
+                
+                requestAnimationFrame(draw);
+            }
+            
+            draw();
+        });
+    </script>
+</body>
+</html>
