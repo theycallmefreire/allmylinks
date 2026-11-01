@@ -254,11 +254,31 @@ body {
 }
 
 /* ===================================================================
+   TRYHACKME BADGE
+   =================================================================== */
+
+.thm-badge {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.thm-badge iframe,
+.thm-badge img {
+    max-width: 100%;
+    border: none;
+}
+
+/* ===================================================================
    RODAPÉ
    =================================================================== */
 
 .footer {
-    margin-top: 36px;
+    margin-top: 28px;
     text-align: center;
     font-size: 0.8rem;
     color: var(--text-muted);
